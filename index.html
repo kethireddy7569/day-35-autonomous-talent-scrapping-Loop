@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Day 35 - AI Talent Sourcing Dashboard</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f3f6fb;
+  color: #1e293b;
+}
+
+header {
+  background: linear-gradient(120deg, #14213d, #2563eb);
+  color: white;
+  padding: 30px 5%;
+}
+
+header h1 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+header p {
+  color: #dbeafe;
+  line-height: 1.6;
+}
+
+main {
+  max-width: 1250px;
+  margin: 30px auto;
+  padding: 0 20px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+.stat-card {
+  background: white;
+  padding: 23px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 15px #0f172a08;
+}
+
+.stat-card p {
+  font-size: 14px;
+  color: #64748b;
+  margin-bottom: 15px;
+}
+
+.stat-card h2 {
+  font-size: 32px;
+  color: #2563eb;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+input, select {
+  padding: 13px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: white;
+  font-size: 14px;
+  min-width: 150px;
+}
+
+input:focus, select:focus {
+  outline: 2px solid #93c5fd;
+  border-color: #2563eb;
+}
+
+#search {
+  flex: 1;
+  min-width: 220px;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.section-heading h2 {
+  font-size: 24px;
+}
+
+#resultCount {
+  color: #64748b;
+  font-size: 14px;
+}
+
+.jobs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.job-card {
+  background: white;
+  padding: 23px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 14px #0f172a08;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.job-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px #0f172a12;
+}
+
+.job-card h3 {
+  color: #172554;
+  font-size: 19px;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.company {
+  font-weight: bold;
+  color: #334155;
+  margin-bottom: 12px;
+}
+
+.details {
+  font-size: 14px;
+  color: #64748b;
+  line-height: 1.9;
+  overflow-wrap: anywhere;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 16px 0;
+}
+
+.tag {
+  background: #eff6ff;
+  color: #1d4ed8;
+  padding: 7px 11px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.tag.remote {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.tag.hybrid {
+  background: #fff7ed;
+  color: #c2410c;
+}
+
+.skills-title {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 15px 0 8px;
+}
+
+.skills {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+
+.skill {
+  background: #ede9fe;
+  color: #6d28d9;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+.reason {
+  background: #f8fafc;
+  border-left: 3px solid #2563eb;
+  padding: 12px;
+  border-radius: 5px;
+  margin: 18px 0;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #475569;
+  overflow-wrap: anywhere;
+}
+
+.reason strong {
+  display: block;
+  color: #1e293b;
+  margin-bottom: 5px;
+}
+
+.apply {
+  display: inline-block;
+  background: #2563eb;
+  color: white;
+  text-decoration: none;
+  padding: 12px 19px;
+  border-radius: 7px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.apply:hover {
+  background: #1d4ed8;
+}
+
+.refresh-btn {
+  background: #e0e7ff;
+  color: #1d4ed8;
+  border: none;
+  border-radius: 7px;
+  padding: 11px 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.refresh-btn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.status {
+  color: #64748b;
+  font-size: 13px;
+  margin-bottom: 18px;
+}
+
+.message {
+  grid-column: 1 / -1;
+  background: white;
+  padding: 35px;
+  border-radius: 12px;
+  text-align: center;
+  color: #64748b;
+  line-height: 1.8;
+}
+
+.error {
+  background: #fef2f2;
+  color: #b91c1c;
+}
+
+footer {
+  text-align: center;
+  padding: 28px;
+  color: #64748b;
+  font-size: 13px;
+}
+
+@media (max-width: 900px) {
+  .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 650px) {
+  .jobs {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-card {
+    padding: 16px;
+  }
+
+  .stat-card h2 {
+    font-size: 26px;
+  }
+
+  header h1 {
+    font-size: 23px;
+  }
+
+  input, select {
+    width: 100%;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>AI Talent Sourcing Dashboard</h1>
+  <p>
+    Day 35 - Autonomous Talent Sourcing Agent
+    <br>
+    Discover AI-classified technology jobs from Naukri and LinkedIn.
+  </p>
+</header>
+
+<main>
+
+  <section class="stats">
+    <div class="stat-card">
+      <p>Total Relevant Jobs</p>
+      <h2 id="totalJobs">0</h2>
+    </div>
+
+    <div class="stat-card">
+      <p>Remote Jobs</p>
+      <h2 id="remoteJobs">0</h2>
+    </div>
+
+    <div class="stat-card">
+      <p>Hybrid Jobs</p>
+      <h2 id="hybridJobs">0</h2>
+    </div>
+
+    <div class="stat-card">
+      <p>Full-Time Jobs</p>
+      <h2 id="fullTimeJobs">0</h2>
+    </div>
+  </section>
+
+  <div class="section-heading">
+    <h2>AI Classified Job Opportunities</h2>
+    <button id="refreshBtn" class="refresh-btn">
+      Refresh Jobs
+    </button>
+  </div>
+
+  <p id="status" class="status">Loading AI job data...</p>
+
+  <section class="filters">
+    <input
+      id="search"
+      type="search"
+      placeholder="Search jobs, companies, skills..."
+      aria-label="Search jobs"
+    >
+
+    <select id="workMode" aria-label="Work mode">
+      <option value="">All Work Modes</option>
+      <option value="remote">Remote</option>
+      <option value="hybrid">Hybrid</option>
+      <option value="on site">On-site</option>
+    </select>
+
+    <select id="employmentType" aria-label="Employment type">
+      <option value="">All Employment Types</option>
+      <option value="full time">Full-Time</option>
+      <option value="part time">Part-Time</option>
+      <option value="contract">Contract</option>
+    </select>
+
+    <select id="source" aria-label="Job source">
+      <option value="">All Sources</option>
+      <option value="naukri">Naukri</option>
+      <option value="linkedin">LinkedIn</option>
+    </select>
+  </section>
+
+  <div class="section-heading">
+    <h2>Relevant Job Listings</h2>
+    <p id="resultCount">0 jobs found</p>
+  </div>
+
+  <section class="jobs" id="jobList">
+    <div class="message">Loading relevant jobs...</div>
+  </section>
+
+</main>
+
+<footer>
+  Day 35 | Autonomous Talent Sourcing Agent | Powered by OpenRouter
+</footer>
+
+<script>
+"use strict";
+
+let allJobs = [];
+
+const jobList = document.getElementById("jobList");
+const searchInput = document.getElementById("search");
+const workModeInput = document.getElementById("workMode");
+const employmentInput = document.getElementById("employmentType");
+const sourceInput = document.getElementById("source");
+const refreshBtn = document.getElementById("refreshBtn");
+
+function normalize(value) {
+  return String(value ?? "")
+    .toLowerCase()
+    .replace(/[-_]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function display(value) {
+  if (value === null || value === undefined ||
+      String(value).trim() === "") {
+    return "Not specified";
+  }
+  return String(value);
+}
+
+function isRemote(job) {
+  return normalize(job.work_mode) === "remote";
+}
+
+function isHybrid(job) {
+  return normalize(job.work_mode) === "hybrid";
+}
+
+function isFullTime(job) {
+  const value = normalize(job.employment_type);
+  return /\bfull\s*time\b|\bfulltime\b/.test(value);
+}
+
+function updateStats() {
+  document.getElementById("totalJobs").textContent =
+    allJobs.length;
+
+  document.getElementById("remoteJobs").textContent =
+    allJobs.filter(isRemote).length;
+
+  document.getElementById("hybridJobs").textContent =
+    allJobs.filter(isHybrid).length;
+
+  document.getElementById("fullTimeJobs").textContent =
+    allJobs.filter(isFullTime).length;
+}
+
+function element(tag, className, content) {
+  const el = document.createElement(tag);
+  if (className) el.className = className;
+  if (content !== undefined) el.textContent = content;
+  return el;
+}
+
+function createJobCard(job) {
+  const card = element("article", "job-card");
+
+  card.appendChild(
+    element("h3", "", display(job.job_title))
+  );
+
+  card.appendChild(
+    element("p", "company", display(job.company))
+  );
+
+  const details = element("div", "details");
+
+  details.appendChild(
+    element("p", "", "Location: " + display(job.location))
+  );
+
+  details.appendChild(
+    element("p", "", "Source: " + display(job.source))
+  );
+
+  card.appendChild(details);
+
+  const tags = element("div", "tags");
+  const mode = normalize(job.work_mode);
+
+  let modeClass = "tag";
+  if (mode === "remote") modeClass += " remote";
+  if (mode === "hybrid") modeClass += " hybrid";
+
+  tags.appendChild(
+    element("span", modeClass, display(job.work_mode))
+  );
+
+  tags.appendChild(
+    element("span", "tag", display(job.employment_type))
+  );
+
+  card.appendChild(tags);
+
+  card.appendChild(
+    element("p", "skills-title", "Relevant Technical Skills")
+  );
+
+  const skillsContainer = element("div", "skills");
+
+  const skills = Array.isArray(job.relevant_skills)
+    ? job.relevant_skills
+    : [];
+
+  if (skills.length > 0) {
+    skills.forEach(skill => {
+      skillsContainer.appendChild(
+        element("span", "skill", String(skill))
+      );
+    });
+  } else {
+    skillsContainer.appendChild(
+      element("span", "skill", "Not specified")
+    );
+  }
+
+  card.appendChild(skillsContainer);
+
+  const reason = element("div", "reason");
+
+  reason.appendChild(
+    element("strong", "", "AI Relevance Reason")
+  );
+
+  reason.appendChild(
+    element("p", "", display(job.relevance_reason))
+  );
+
+  card.appendChild(reason);
+
+  const jobUrl = String(job.job_url ?? "").trim();
+
+  try {
+    const parsedUrl = new URL(jobUrl);
+
+    if (["https:", "http:"].includes(parsedUrl.protocol)) {
+      const apply = element("a", "apply", "Apply Now");
+
+      apply.href = parsedUrl.href;
+      apply.target = "_blank";
+      apply.rel = "noopener noreferrer";
+
+      card.appendChild(apply);
+    }
+  } catch {
+    card.appendChild(
+      element("p", "details", "Application link unavailable")
+    );
+  }
+
+  return card;
+}
+
+function renderJobs(jobs) {
+  jobList.replaceChildren();
+
+  document.getElementById("resultCount").textContent =
+    jobs.length + (jobs.length === 1 ? " job found" : " jobs found");
+
+  if (jobs.length === 0) {
+    jobList.appendChild(
+      element(
+        "div",
+        "message",
+        "No matching jobs found. Try changing the filters."
+      )
+    );
+    return;
+  }
+
+  const fragment = document.createDocumentFragment();
+
+  jobs.forEach(job => {
+    fragment.appendChild(createJobCard(job));
+  });
+
+  jobList.appendChild(fragment);
+}
+
+function filterJobs() {
+  const query = normalize(searchInput.value);
+  const selectedMode = normalize(workModeInput.value);
+  const selectedType = normalize(employmentInput.value);
+  const selectedSource = normalize(sourceInput.value);
+
+  const filtered = allJobs.filter(job => {
+    const skills = Array.isArray(job.relevant_skills)
+      ? job.relevant_skills.join(" ")
+      : "";
+
+    const searchable = normalize([
+      job.job_title,
+      job.company,
+      job.location,
+      skills,
+      job.relevance_reason
+    ].join(" "));
+
+    const matchesSearch = searchable.includes(query);
+
+    const matchesMode = !selectedMode ||
+      normalize(job.work_mode) === selectedMode;
+
+    const matchesType = !selectedType ||
+      normalize(job.employment_type).includes(selectedType);
+
+    const matchesSource = !selectedSource ||
+      normalize(job.source) === selectedSource;
+
+    return matchesSearch &&
+      matchesMode &&
+      matchesType &&
+      matchesSource;
+  });
+
+  renderJobs(filtered);
+}
+
+async function loadJobs() {
+  const status = document.getElementById("status");
+
+  status.textContent = "Loading Day 35 job data...";
+  refreshBtn.disabled = true;
+
+  try {
+    const response = await fetch("./day35_relevant_jobs.json", {
+      cache: "no-store"
+    });
+
+    if (!response.ok) {
+      throw new Error(
+        "day35_relevant_jobs.json not found. Check file location."
+      );
+    }
+
+    const data = await response.json();
+
+    if (!Array.isArray(data)) {
+      throw new Error(
+        "Invalid JSON format. Expected an array of jobs."
+      );
+    }
+
+    allJobs = data.filter(job =>
+      job && typeof job === "object" && !Array.isArray(job)
+    );
+
+    updateStats();
+    filterJobs();
+
+    status.textContent =
+      "AI job data loaded successfully. " +
+      allJobs.length + " relevant jobs available.";
+
+  } catch (error) {
+    console.error("Loading error:", error);
+
+    allJobs = [];
+    updateStats();
+
+    document.getElementById("resultCount").textContent =
+      "Job data unavailable";
+
+    jobList.replaceChildren(
+      element(
+        "div",
+        "message error",
+        error.message +
+        " Open the page using VS Code Live Server or another local web server."
+      )
+    );
+
+    status.textContent = "Unable to load Day 35 job data.";
+
+  } finally {
+    refreshBtn.disabled = false;
+  }
+}
+
+searchInput.addEventListener("input", filterJobs);
+workModeInput.addEventListener("change", filterJobs);
+employmentInput.addEventListener("change", filterJobs);
+sourceInput.addEventListener("change", filterJobs);
+refreshBtn.addEventListener("click", loadJobs);
+
+loadJobs();
+</script>
+
+</body>
+</html>

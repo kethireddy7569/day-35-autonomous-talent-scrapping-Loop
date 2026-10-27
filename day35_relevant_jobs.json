@@ -1,0 +1,115 @@
+[
+    {
+        "job_title": "Python Developer - Remote Work | REF#296933",
+        "company": "BairesDev",
+        "location": "Bhopal, Madhya Pradesh, India",
+        "work_mode": "Remote",
+        "employment_type": "",
+        "source": "LinkedIn",
+        "job_url": "https://in.linkedin.com/jobs/view/python-developer-remote-work-ref%23296933-at-bairesdev-4438271121?position=5&pageNum=0&refId=hQoc%2FZDD476gIpZps9fO5w%3D%3D&trackingId=SgQSmZ3NEpU2VHhsCD2K8g%3D%3D",
+        "relevant_skills": [
+            "Python",
+            "Backend Development",
+            "Software Engineering",
+            "Remote Collaboration"
+        ],
+        "relevance_reason": "Directly targets Python development, aligning with core backend, data science, and software engineering capabilities."
+    },
+    {
+        "job_title": "Java Full Stack Lead",
+        "company": "Hexaware Technologies",
+        "location": "Pune, Chennai, Mumbai (All Areas)",
+        "work_mode": "Hybrid",
+        "employment_type": "",
+        "source": "Naukri",
+        "job_url": "https://www.naukri.com/job-listings-java-full-stack-lead-hexaware-technologies-pune-chennai-mumbai-all-areas-8-to-12-years-010226004753",
+        "relevant_skills": [
+            "Java",
+            "Full Stack Development",
+            "Frontend Technologies",
+            "Backend Architecture"
+        ],
+        "relevance_reason": "Looks for a lead in Java full-stack development, covering both frontend and backend tech stacks."
+    },
+    {
+        "job_title": "Automation Test Engineer",
+        "company": "Infosys",
+        "location": "Pune, Bengaluru, Mumbai (All Areas)",
+        "work_mode": "Hybrid",
+        "employment_type": "",
+        "source": "Naukri",
+        "job_url": "https://www.naukri.com/job-listings-automation-test-engineer-infosys-pune-bengaluru-mumbai-all-areas-2-to-3-years-280826011299",
+        "relevant_skills": [
+            "Automation Testing",
+            "Software Testing",
+            "Test Automation Frameworks",
+            "QA Engineering"
+        ],
+        "relevance_reason": "Focuses on test automation, which is a crucial part of software engineering, quality assurance, and DevOps pipelines."
+    },
+    {
+        "job_title": "Hexaware Hiring_RPA Blue Prism_Pan India_WFH",
+        "company": "Hexaware Technologies",
+        "location": "Pune, Chennai, Mumbai (All Areas)",
+        "work_mode": "",
+        "employment_type": "",
+        "source": "Naukri",
+        "job_url": "https://www.naukri.com/job-listings-hexaware-hiring-rpa-blue-prism-pan-india-wfh-hexaware-technologies-pune-chennai-mumbai-all-areas-6-to-8-years-051026038971",
+        "relevant_skills": [
+            "RPA",
+            "Blue Prism",
+            "Process Automation",
+            "Automation Engineering"
+        ],
+        "relevance_reason": "Specializes in Robotic Process Automation (RPA) with Blue Prism, highly relevant to software automation and digital transformation."
+    },
+    {
+        "job_title": "Solutions Architect",
+        "company": "Tata Consultancy Services",
+        "location": "Greater Hyderabad Area",
+        "work_mode": "",
+        "employment_type": "",
+        "source": "LinkedIn",
+        "job_url": "https://in.linkedin.com/jobs/view/solutions-architect-at-tata-consultancy-services-4463231753?position=6&pageNum=0&refId=hQoc%2FZDD476gIpZps9fO5w%3D%3D&trackingId=z0LYFLHnb13wsmt9rNRd%2Fg%3D%3D",
+        "relevant_skills": [
+            "Cloud Architecture",
+            "Solution Design",
+            "Software Architecture",
+            "Enterprise Solutions"
+        ],
+        "relevance_reason": "Focuses on technology architecture, software design, and cloud solutions, which are core to software engineering leadership."
+    },
+    {
+        "job_title": "TEST ARCHITECT L1",
+        "company": "Wipro",
+        "location": "Hyderabad, Telangana, India",
+        "work_mode": "",
+        "employment_type": "",
+        "source": "LinkedIn",
+        "job_url": "https://in.linkedin.com/jobs/view/test-architect-l1-at-wipro-4472225195?position=56&pageNum=0&refId=hQoc%2FZDD476gIpZps9fO5w%3D%3D&trackingId=LWXg27NPCTeQ6J0CoN6Egg%3D%3D",
+        "relevant_skills": [
+            "Test Architecture",
+            "QA Automation",
+            "Software Testing Frameworks",
+            "DevOps Testing"
+        ],
+        "relevance_reason": "Involves structuring test frameworks and QA automation architectures, vital for modern software delivery and CI/CD pipelines."
+    },
+    {
+        "job_title": "LLVM Compiler Engineer",
+        "company": "Azul",
+        "location": "Greater Kolkata Area",
+        "work_mode": "",
+        "employment_type": "",
+        "source": "LinkedIn",
+        "job_url": "https://in.linkedin.com/jobs/view/llvm-compiler-engineer-at-azul-4452401730?position=59&pageNum=0&refId=hQoc%2FZDD476gIpZps9fO5w%3D%3D&trackingId=9LyhOxp4GBk1BR%2FvADYo%2FQ%3D%3D",
+        "relevant_skills": [
+            "LLVM",
+            "Compiler Engineering",
+            "Backend Systems",
+            "C++",
+            "Virtualization"
+        ],
+        "relevance_reason": "A specialized backend software engineering role focusing on compiler infrastructure, runtime environments, and low-level systems programming."
+    }
+]
